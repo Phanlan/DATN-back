@@ -14,9 +14,9 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class UsedElectricWaterMapper implements Mapper<UsedElectricWater> {
 
-    private Timestamp convertStringToTimestamp(String dateOfBirth){
+    private Timestamp convertStringToTimestamp(String month){
         DateTimeFormatter formatDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(dateOfBirth + " 00:00:00"));
+        LocalDateTime localDateTime = LocalDateTime.from(formatDateTime.parse(month + " 00:00:00"));
         return Timestamp.valueOf(localDateTime);
     }
 

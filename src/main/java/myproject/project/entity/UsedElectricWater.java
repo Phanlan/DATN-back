@@ -32,4 +32,5 @@ public class UsedElectricWater extends BaseModel {
     @ManyToOne()
     @JoinColumn(name = "company_id")
     private Company company;
+
 }

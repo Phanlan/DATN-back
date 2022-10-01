@@ -29,4 +29,9 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
 
     List<Company> findCompanyByIsDeletedAndNameLike(boolean isDeleted, String name);
 
+    @Query(value = "SELECT * FROM company c " +
+            "WHERE c.id = :companyId ", nativeQuery = true)
+    List<Company> findByCompanyId(Long companyId);
+
+
 }

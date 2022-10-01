@@ -18,42 +18,42 @@ public class CompanyMapper implements Mapper<Company> {
     private final CompanyEmployeeMapper companyEmployeeMapper;
     private final UsedElectricWaterMapper usedElectricWaterMapper;
 
-    public Company to(CompanyRequest request){
+    public Company to(CompanyRequest request) {
         Company company = new Company();
-        BeanUtils.copyProperties(request,company);
-        return company;
-    }
-
-    public Company to(Company company, CompanyRequest request){
         BeanUtils.copyProperties(request, company);
         return company;
     }
 
-    public CompanyResponse to(Company company){
+    public Company to(Company company, CompanyRequest request) {
+        BeanUtils.copyProperties(request, company);
+        return company;
+    }
+
+    public CompanyResponse to(Company company) {
         CompanyResponse companyResponse = new CompanyResponse();
-        BeanUtils.copyProperties(company,companyResponse);
-        if(company.getCompanyEmployeeList() != null){
+        BeanUtils.copyProperties(company, companyResponse);
+        if (company.getCompanyEmployeeList() != null) {
             Long numberOfEmployee = Long.valueOf(company.getCompanyEmployeeList().size());
             companyResponse.setNumberOfEmployee(numberOfEmployee);
         }
         return companyResponse;
     }
 
-    public CompanyDetailResponse toDetail(Company company){
+    public CompanyDetailResponse toDetail(Company company) {
         CompanyDetailResponse companyDetailResponse = new CompanyDetailResponse();
-        BeanUtils.copyProperties(company,companyDetailResponse);
-        if(company.getCompanyEmployeeList() != null){
-            List<CompanyEmployeeResponse> companyEmployeeResponseList = companyEmployeeMapper.toList(company.getCompanyEmployeeList(),companyEmployeeMapper::to);
+        BeanUtils.copyProperties(company, companyDetailResponse);
+        if (company.getCompanyEmployeeList() != null) {
+            List<CompanyEmployeeResponse> companyEmployeeResponseList = companyEmployeeMapper.toList(company.getCompanyEmployeeList(), companyEmployeeMapper::to);
             companyDetailResponse.setCompanyEmployeeList(companyEmployeeResponseList);
         }
-        if(company.getUsedElectricWaterList() != null){
-            List<UsedElectricWaterResponse> usedElectricWaterResponseList = usedElectricWaterMapper.toList(company.getUsedElectricWaterList(),usedElectricWaterMapper::to);
+        if (company.getUsedElectricWaterList() != null) {
+            List<UsedElectricWaterResponse> usedElectricWaterResponseList = usedElectricWaterMapper.toList(company.getUsedElectricWaterList(), usedElectricWaterMapper::to);
             companyDetailResponse.setUsedElectricWaterList(usedElectricWaterResponseList);
         }
-        if(company.getUsedServiceList() != null){
+        if (company.getUsedServiceList() != null) {
             List<ServiceResponse> serviceList = new ArrayList<>();
             System.out.println(company.getUsedServiceList());
-            for(UsedService usedService: company.getUsedServiceList()){
+            for (UsedService usedService : company.getUsedServiceList()) {
                 ServiceResponse serviceResponse = new ServiceResponse();
                 serviceResponse.setId(usedService.getService().getId());
                 serviceResponse.setName(usedService.getService().getName());
@@ -63,9 +63,9 @@ public class CompanyMapper implements Mapper<Company> {
             System.out.println(serviceList);
             companyDetailResponse.setServiceList(serviceList);
         }
-        if(company.getUsedInfrastructureList() != null){
+        if (company.getUsedInfrastructureList() != null) {
             List<InfrastructureResponse> infrastructureResponseList = new ArrayList<>();
-            for (UsedInfrastructure usedInfrastructure: company.getUsedInfrastructureList()){
+            for (UsedInfrastructure usedInfrastructure : company.getUsedInfrastructureList()) {
                 InfrastructureResponse infrastructureResponse = new InfrastructureResponse();
                 infrastructureResponse.setId(usedInfrastructure.getInfrastructure().getId());
                 infrastructureResponse.setQuantity(usedInfrastructure.getInfrastructure().getQuantity());

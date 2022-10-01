@@ -53,5 +53,7 @@ public class Company extends BaseModel {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
     private List<UsedInfrastructure> usedInfrastructureList;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private List<Invoice> invoiceList;
 
 }

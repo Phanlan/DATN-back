@@ -37,7 +37,7 @@ public class MonthStatCompanyImpl implements MonthStatCompany {
             response.setCompanyResponse(companyMapper.to(company));
             Long companyId = company.getId();
             List<MonthUsedService> monthUsedServiceList = monthUsedServiceRepository.findByCompanyIdAndDate(companyId, month, year);
-            List<UsedElectricWater> usedEletricWaterList = usedElectricWaterRepository.findByCompanyIdAndDate(companyId, month, year);
+            List<UsedElectricWater> usedEletricWaterList = usedElectricWaterRepository.findByCompanyIdAndDate(companyId, month+1, year);
             System.out.println(usedEletricWaterList);
             if(!monthUsedServiceList.isEmpty()) {
                 float servicePrice = 0;
@@ -49,8 +49,8 @@ public class MonthStatCompanyImpl implements MonthStatCompany {
                 float waterPrice = 0;
                 float electricPrice = 0;
                 for (UsedElectricWater usedElectricWater: usedEletricWaterList){
-                    waterPrice = (float) (usedElectricWater.getWaterNumber() * 2500);
-                    electricPrice = (float) (usedElectricWater.getElectricNumber() * 7000);
+                    waterPrice = (float) (usedElectricWater.getWaterNumber() * 7000);
+                    electricPrice = (float) (usedElectricWater.getElectricNumber() * 2500);
                 }
                 Long numberOfEmployee = response.getCompanyResponse().getNumberOfEmployee();
                 servicePrice = servicePrice + servicePrice * (numberOfEmployee / 5 + (int) (company.getArea() / 10)) * 5 / 100;

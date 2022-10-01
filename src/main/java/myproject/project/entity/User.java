@@ -22,9 +22,9 @@ public class User extends BaseModel {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+//    @ManyToOne
+//    @JoinColumn(name = "role_id", nullable = false)
+//    private Role role;
 
     @Column(name = "full_name")
     private String fullName;

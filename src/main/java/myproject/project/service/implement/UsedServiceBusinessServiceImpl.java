@@ -45,7 +45,6 @@ public class UsedServiceBusinessServiceImpl implements UsedServiceBusinessServic
     @Transactional
     public String deleteByCompanyIdAndServiceId(Long companyId, Long serviceId) {
         UsedService usedService = repository.findByIsDeletedAndCompanyIdAndServiceId(false,companyId, serviceId);
-        System.out.println(usedService);
         usedService.setIsDeleted(true);
         repository.saveAndFlush(usedService);
         return "Deleted";
@@ -54,7 +53,6 @@ public class UsedServiceBusinessServiceImpl implements UsedServiceBusinessServic
     @Override
     public List<UsedServiceResponse> findUsedServiceMonthByCompany(Long companyId, Long month) {
         List<UsedService> usedServiceList = repository.findUsedServiceMonthByCompanyId(companyId,month);
-        System.out.println(usedServiceList);
         return usedServiceList.stream().map(mapper::to).collect(Collectors.toList());
     }
 }

@@ -12,4 +12,5 @@ public class UsedServiceResponse {
     private Long companyId;
 
     private Long serviceId;
+
 }

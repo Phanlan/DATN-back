@@ -29,4 +29,5 @@ public class UsedService extends BaseModel{
     @JoinColumn(name = "service_id")
     private Service service;
 
+
 }
