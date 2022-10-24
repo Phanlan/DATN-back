@@ -19,4 +19,5 @@ public class CompanyDetailResponse {
     List<ServiceResponse> serviceList;
     List<UsedElectricWaterResponse> usedElectricWaterList;
     List<InfrastructureResponse> infrastructureList;
+    List<VehicleResponse> vehicleResponseList;
 }

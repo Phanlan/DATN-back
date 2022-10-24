@@ -43,6 +43,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<InvoiceResponse> getAllInvoice() {
         List<Invoice> invoiceList = invoiceRepository.findAllByIsDeleted(false);
+        System.out.println(invoiceList);
         return invoiceList.stream().map(invoiceMapper::to).collect(Collectors.toList());
     }
 }

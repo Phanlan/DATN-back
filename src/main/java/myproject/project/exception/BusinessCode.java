@@ -32,4 +32,7 @@ public class BusinessCode {
 
     public static final ErrorResponse BUILDING_EMPLOYEE_EXISTED =
             new ErrorResponse("BUILDING_EMPLOYEE_EXISTED", "Building employee existed", HttpStatus.BAD_REQUEST);
+
+    public static final ErrorResponse COMPANY_INVOICE_EXISTED =
+            new ErrorResponse("COMPANY_INVOICE_EXISTED", "Company invoice in month existed", HttpStatus.BAD_REQUEST);
 }

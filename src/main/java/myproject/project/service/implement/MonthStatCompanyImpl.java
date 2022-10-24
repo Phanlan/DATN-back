@@ -37,7 +37,7 @@ public class MonthStatCompanyImpl implements MonthStatCompany {
             response.setCompanyResponse(companyMapper.to(company));
             Long companyId = company.getId();
             List<MonthUsedService> monthUsedServiceList = monthUsedServiceRepository.findByCompanyIdAndDate(companyId, month, year);
-            List<UsedElectricWater> usedEletricWaterList = usedElectricWaterRepository.findByCompanyIdAndDate(companyId, month+1, year);
+            List<UsedElectricWater> usedEletricWaterList = usedElectricWaterRepository.findByCompanyIdAndDate(companyId, month, year);
             System.out.println(usedEletricWaterList);
             if(!monthUsedServiceList.isEmpty()) {
                 float servicePrice = 0;

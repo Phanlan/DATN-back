@@ -45,41 +45,38 @@ public class InvoiceMapper implements Mapper<Invoice> {
                 () -> new BusinessException(BusinessCode.NOT_FOUND_COMPANY)
         );
 
-        Integer month = request.getMonth();
-        Integer year = request.getYear();
-        List<MonthUsedService> monthUsedServiceList = monthUsedServiceRepository.findByCompanyIdAndDate(companyId, month, year);
-        List<UsedElectricWater> usedEletricWaterList = usedElectricWaterRepository.findByCompanyIdAndDate(companyId, month+1, year);
-        System.out.println(usedEletricWaterList);
+            Integer month = request.getMonth();
+            Integer year = request.getYear();
+            List<MonthUsedService> monthUsedServiceList = monthUsedServiceRepository.findByCompanyIdAndDate(companyId, month, year);
+            List<UsedElectricWater> usedEletricWaterList = usedElectricWaterRepository.findByCompanyIdAndDate(companyId, month, year);
+            System.out.println(usedEletricWaterList);
 
-        float servicePrice = 0;
-        for (MonthUsedService monthUsedService : monthUsedServiceList) {
-            UsedService usedService = monthUsedService.getUsedService();
-            myproject.project.entity.Service service = usedService.getService();
-            servicePrice += service.getPrice();
-        }
-        System.out.println(servicePrice);
-        float waterPrice = 0;
-        float electricPrice = 0;
-        for (UsedElectricWater usedElectricWater : usedEletricWaterList) {
-            waterPrice = (float) (usedElectricWater.getWaterNumber() * 2500);
-            electricPrice = (float) (usedElectricWater.getElectricNumber() * 7000);
-        }
-        System.out.println(electricPrice);
-        Integer numberOfEmployee = company.getCompanyEmployeeList().size();
-        System.out.println(numberOfEmployee);
-        Float area = company.getArea();
-        System.out.println(area);
-        Float rentalPrice = SystemConstant.RENTAL_PRICE * area;
-        System.out.println(rentalPrice);
-        servicePrice = servicePrice + servicePrice * (numberOfEmployee / 5 + (int) (area / 10)) * 5 / 100;
-        invoice.setCompany(company);
-        invoice.setServicePrice(servicePrice);
-        invoice.setWaterPrice(waterPrice);
-        invoice.setElectricPrice(electricPrice);
-        invoice.setRentalPrice(rentalPrice);
-        invoice.setTotal(servicePrice + rentalPrice + waterPrice + electricPrice);
-        invoice.setInvoiceDate(convertStringToTimestamp(request.getInvoiceDate()));
-    System.out.println(invoice);
+            float servicePrice = 0;
+            for (MonthUsedService monthUsedService : monthUsedServiceList) {
+                UsedService usedService = monthUsedService.getUsedService();
+                myproject.project.entity.Service service = usedService.getService();
+                servicePrice += service.getPrice();
+            }
+            System.out.println(servicePrice);
+            float waterPrice = 0;
+            float electricPrice = 0;
+            for (UsedElectricWater usedElectricWater : usedEletricWaterList) {
+                waterPrice = (float) (usedElectricWater.getWaterNumber() * 2500);
+                electricPrice = (float) (usedElectricWater.getElectricNumber() * 7000);
+            }
+            Integer numberOfEmployee = company.getCompanyEmployeeList().size();
+            Float area = company.getArea();
+            Float rentalPrice = SystemConstant.RENTAL_PRICE * area;
+            servicePrice = servicePrice + servicePrice * (numberOfEmployee / 5 + (int) (area / 10)) * 5 / 100;
+            invoice.setCompany(company);
+            invoice.setServicePrice(servicePrice);
+            invoice.setWaterPrice(waterPrice);
+            invoice.setElectricPrice(electricPrice);
+            invoice.setRentalPrice(rentalPrice);
+            invoice.setTotal(servicePrice + rentalPrice + waterPrice + electricPrice);
+            invoice.setInvoiceDate(convertStringToTimestamp(request.getInvoiceDate()));
+            System.out.println(invoice);
+
         return invoice;
     }
 
@@ -91,6 +88,10 @@ public class InvoiceMapper implements Mapper<Invoice> {
     public InvoiceResponse to(Invoice invoice){
         InvoiceResponse response = new InvoiceResponse();
         BeanUtils.copyProperties(invoice, response);
+        response.setCompanyId(invoice.getCompany().getId());
+        response.setCompanyName(invoice.getCompany().getName());
+        response.setInvoiceDate(convertTimestampToString(invoice.getInvoiceDate()));
+        System.out.println(invoice);
         return response;
     }
 }

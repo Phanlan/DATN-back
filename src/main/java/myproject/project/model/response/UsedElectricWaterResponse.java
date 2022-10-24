@@ -8,5 +8,6 @@ public class UsedElectricWaterResponse {
     private Long electricNumber;
     private String month;
     private Long company_id;
+    private String companyName;
 
 }

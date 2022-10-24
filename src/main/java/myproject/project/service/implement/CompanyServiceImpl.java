@@ -37,6 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
     private final UsedInfrastructureRepository usedInfrastructureRepository;
 
     private final CompanyMapper companyMapper;
+    private final VehicleRepository vehicleRepository;
 
     @Override
     @Transactional
@@ -64,10 +65,12 @@ public class CompanyServiceImpl implements CompanyService {
         List<CompanyEmployee> companyEmployeeList = companyEmployeeRepository.findCompanyEmployeeByIsDeletedAndCompanyId(false,id);
         List<UsedElectricWater> usedElectricWaterList = usedElectricWaterRepository.findUsedElectricWaterByIsDeletedAndCompanyId(false,id);
         List<UsedInfrastructure> usedInfrastructureList = usedInfrastructureRepository.findByIsDeletedAndCompanyId(false,id);
+        List<Vehicle> vehicleList = vehicleRepository.findByIsDeletedAndCompanyId(false,id);
         company.setCompanyEmployeeList(companyEmployeeList);
         company.setUsedServiceList(usedServiceList);
         company.setUsedElectricWaterList(usedElectricWaterList);
         company.setUsedInfrastructureList(usedInfrastructureList);
+        company.setVehicleList(vehicleList);
         return companyMapper.toDetail(company);
     }
 

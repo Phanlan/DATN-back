@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class InvoiceResponse {
-    private CompanyResponse companyResponse;
+    private Long companyId;
+    private String companyName;
     private Long id;
     private Float total;
     private String month;

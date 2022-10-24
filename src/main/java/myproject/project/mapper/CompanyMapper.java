@@ -17,6 +17,7 @@ import java.util.List;
 public class CompanyMapper implements Mapper<Company> {
     private final CompanyEmployeeMapper companyEmployeeMapper;
     private final UsedElectricWaterMapper usedElectricWaterMapper;
+    private final VehicleMapper vehicleMapper;
 
     public Company to(CompanyRequest request) {
         Company company = new Company();
@@ -49,6 +50,11 @@ public class CompanyMapper implements Mapper<Company> {
         if (company.getUsedElectricWaterList() != null) {
             List<UsedElectricWaterResponse> usedElectricWaterResponseList = usedElectricWaterMapper.toList(company.getUsedElectricWaterList(), usedElectricWaterMapper::to);
             companyDetailResponse.setUsedElectricWaterList(usedElectricWaterResponseList);
+        }
+
+        if (company.getVehicleList() != null) {
+            List<VehicleResponse> vehicleResponseList = vehicleMapper.toList(company.getVehicleList(), vehicleMapper::to);
+            companyDetailResponse.setVehicleResponseList(vehicleResponseList);
         }
         if (company.getUsedServiceList() != null) {
             List<ServiceResponse> serviceList = new ArrayList<>();

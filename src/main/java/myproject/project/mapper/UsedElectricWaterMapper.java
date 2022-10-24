@@ -28,6 +28,7 @@ public class UsedElectricWaterMapper implements Mapper<UsedElectricWater> {
         BeanUtils.copyProperties(usedElectricWater, response);
         response.setMonth(convertTimestampToString(usedElectricWater.getMonth()));
         response.setCompany_id(usedElectricWater.getCompany().getId());
+        response.setCompanyName(usedElectricWater.getCompany().getName());
         return response;
     }
 
